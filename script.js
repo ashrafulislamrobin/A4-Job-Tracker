@@ -1,3 +1,4 @@
+// Initialize interview list, rejected list, and current status variables
 let interviewList = [];
 let rejectedList = [];
 let currentStatus = "all";
@@ -7,7 +8,7 @@ const total = document.getElementById("total");
 const interview = document.getElementById("interview");
 const rejected = document.getElementById("rejected");
 
-// Initialize job card counter  variable
+// Initialize job card counter  variables
 let interviewCount = 0;
 let rejectedCount = 0;
 
@@ -66,7 +67,119 @@ function filtering(id) {
   }
 }
 
+// Counter calculation function
+total.innerText = allCardSection.children.length;
+function calculationCounter() {
+  interviewCount = interviewList.length;
+  rejectedCount = rejectedList.length;
+  interview.innerText = interviewList.length;
+  rejected.innerText = rejectedList.length;
+}
+// Add interview cards in the interview list
 
+document.addEventListener("click", function (event) {
+  const parentNode = event.target.parentNode.parentNode.parentNode;
+
+  if (event.target.classList.contains("interview-btn")) {
+    const jobName = parentNode.querySelector(".job-name ").innerText;
+    const jobType = parentNode.querySelector(".job-type ").innerText;
+    const jobBenefit = parentNode.querySelector(".job-benefit ").innerText;
+    const status = parentNode.querySelector(".job-status ").innerText;
+    const jobDescription = parentNode.querySelector(".description ").innerText;
+
+    const cardInfo = {
+      jobName,
+      jobType,
+      jobBenefit,
+      status,
+      jobDescription,
+    };
+    const jobNameExist = interviewList.find(
+      (item) => item.jobName == cardInfo.jobName,
+    );
+    if (!jobNameExist) {
+      cardInfo.status = "Interview";
+      interviewList.push(cardInfo);
+    }
+
+    // Check the interview card in the rejected card list if it is here than remove the card
+    rejectedList = rejectedList.filter(
+      (item) => item.jobName != cardInfo.jobName,
+    );
+
+    // Rendering the rejected list
+    if (currentStatus === "rejected-filter-btn") {
+      renderRejected();
+    }
+
+    calculationCounter();
+  } else if (event.target.classList.contains("rejected-btn")) {
+    const jobName = parentNode.querySelector(".job-name ").innerText;
+    const jobType = parentNode.querySelector(".job-type ").innerText;
+    const jobBenefit = parentNode.querySelector(".job-benefit ").innerText;
+    const status = parentNode.querySelector(".job-status ").innerText;
+    const jobDescription = parentNode.querySelector(".description ").innerText;
+
+    const cardInfo = {
+      jobName,
+      jobType,
+      jobBenefit,
+      status,
+      jobDescription,
+    };
+
+    const jobNameExist = rejectedList.find(
+      (item) => item.jobName == cardInfo.jobName,
+    );
+    if (!jobNameExist) {
+      cardInfo.status = "Rejected";
+      rejectedList.push(cardInfo);
+    }
+
+    // Check the rejected card in the interview card list if it is here than remove the card
+    interviewList = interviewList.filter(
+      (item) => item.jobName != cardInfo.jobName,
+    );
+
+    // Rendering the interview list
+    if (currentStatus === "interview-filter-btn") {
+      renderInterview();
+    }
+
+    calculationCounter();
+  } else if (
+    event.target.classList.contains("delete-btn") ||
+    event.target.closest(".delete-btn")
+  ) {
+    const parentNode = event.target.closest(".job-card");
+    const jobName = parentNode.querySelector(".job-name").innerText;
+
+    // Remove the card from interview list, if present in the interview list
+    interviewList = interviewList.filter((item) => item.jobName !== jobName);
+
+    // Remove the card  from rejected list, if present in the rejected list
+    rejectedList = rejectedList.filter((item) => item.jobName !== jobName);
+
+
+    parentNode.remove();
+
+
+    calculationCounter();
+
+
+    const totalJobsNumber = allCardSection.children.length;
+    Jobcounter.innerHTML = `${totalJobsNumber} Jobs`;
+
+
+    if (currentStatus === "interview-filter-btn") {
+      renderInterview();
+      Jobcounter.innerHTML = `${interviewCount} of ${totalJobsNumber} Jobs`;
+    } else if (currentStatus === "rejected-filter-btn") {
+      renderRejected();
+      Jobcounter.innerHTML = `${rejectedCount} of ${totalJobsNumber} Jobs`;
+    }
+  }
+});
 
 // Create interview card  in the interview filter section
 function renderInterview() {
