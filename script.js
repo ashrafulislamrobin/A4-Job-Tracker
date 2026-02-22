@@ -25,6 +25,47 @@ ${totalJobsNumber} Jobs
 `;
 console.log(Jobcounter);
 
+// Toggle filter button selection
+const allFilterBtn = document.getElementById("all-filter-btn");
+const interviewFilterBtn = document.getElementById("interview-filter-btn");
+const rejectedFilterBtn = document.getElementById("rejected-filter-btn");
+function filtering(id) {
+  allFilterBtn.classList.remove("bg-blue-500", "text-white");
+  interviewFilterBtn.classList.remove("bg-blue-500", "text-white");
+  rejectedFilterBtn.classList.remove("bg-blue-500", "text-white");
+
+  currentStatus = id;
+
+  const selected = document.getElementById(id);
+  selected.classList.add("bg-blue-500", "text-white");
+
+  if (id === "interview-filter-btn") {
+    allCardSection.classList.add("hidden");
+    filterSection.classList.remove("hidden");
+    renderInterview();
+
+    Jobcounter.innerHTML = `
+        ${interviewCount} of ${totalJobsNumber} Jobs
+        `;
+  } else if (id === "rejected-filter-btn") {
+    allCardSection.classList.add("hidden");
+    filterSection.classList.remove("hidden");
+    renderRejected();
+
+    Jobcounter.innerHTML = `
+        ${rejectedCount} of ${totalJobsNumber} Jobs
+        `;
+  } else if (id === "all-filter-btn") {
+    allCardSection.classList.remove("hidden");
+    filterSection.classList.add("hidden");
+
+    Jobcounter.innerHTML = `
+        ${totalJobsNumber} Jobs
+         `;
+    console.log(Jobcounter);
+  }
+}
+
 
 
 // Create interview card  in the interview filter section
@@ -40,7 +81,7 @@ function renderInterview() {
                 <p class="job-type text-gray-500 font-medium">${interview.jobType}</p>
                 <p class="job-benefit my-5 text-gray-500"> ${interview.jobBenefit} </p>
                 <p class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"> ${interview.status} </p>
-                <p id="description" class="description text-gray-900 mb-5"> ${interview.jobDescription} </p>
+                <p id="description" class="description text-gray-500 mb-5"> ${interview.jobDescription} </p>
                 <div class="btn-containe space-x-3">
                     <button
                         class="interview-btn border-green-600 border-2 px-2 py-1 text-green-700"
@@ -74,7 +115,7 @@ function renderRejected() {
                 <p class="job-type text-gray-500 font-medium">${rejected.jobType}</p>
                 <p class="job-benefit my-5 text-gray-500"> ${rejected.jobBenefit} </p>
                 <p class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"> ${rejected.status} </p>
-                <p id="description" class="description text-gray-900 mb-5"> ${rejected.jobDescription} </p>
+                <p id="description" class="description text-gray-500 mb-5"> ${rejected.jobDescription} </p>
                 <div class="btn-containe space-x-3">
                     <button
                         class="interview-btn border-green-600 border-2 px-2 py-1 text-green-700"
