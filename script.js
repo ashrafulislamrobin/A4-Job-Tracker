@@ -105,18 +105,30 @@ document.addEventListener("click", function (event) {
       status,
       jobDescription,
     };
+    
+    // Check if job was previously in rejected list
+    const wasInRejected = rejectedList.some(item => item.jobName == cardInfo.jobName);
+    
     const jobNameExist = interviewList.find(
       (item) => item.jobName == cardInfo.jobName,
     );
     if (!jobNameExist) {
       cardInfo.status = "Interview";
       interviewList.push(cardInfo);
+      
+      // Update the status text in the job card
+      parentNode.querySelector(".job-status").innerText = "Interview";
     }
 
     // Check the interview card in the rejected card list if it is here than remove the card
     rejectedList = rejectedList.filter(
       (item) => item.jobName != cardInfo.jobName,
     );
+
+    // If the job was moved from rejected to interview, ensure status is updated
+    if (wasInRejected && !jobNameExist) {
+      parentNode.querySelector(".job-status").innerText = "Interview";
+    }
 
     // Rendering the rejected list
     if (currentStatus === "rejected-filter-btn") {
@@ -139,18 +151,29 @@ document.addEventListener("click", function (event) {
       jobDescription,
     };
 
+    // Check if job was previously in interview list
+    const wasInInterview = interviewList.some(item => item.jobName == cardInfo.jobName);
+    
     const jobNameExist = rejectedList.find(
       (item) => item.jobName == cardInfo.jobName,
     );
     if (!jobNameExist) {
       cardInfo.status = "Rejected";
       rejectedList.push(cardInfo);
+      
+      // Update the status text in the job card
+      parentNode.querySelector(".job-status").innerText = "Rejected";
     }
 
     // Check the rejected card in the interview card list if it is here than remove the card
     interviewList = interviewList.filter(
       (item) => item.jobName != cardInfo.jobName,
     );
+
+    // If the job was moved from interview to rejected, ensure status is updated
+    if (wasInInterview && !jobNameExist) {
+      parentNode.querySelector(".job-status").innerText = "Rejected";
+    }
 
     // Rendering the interview list
     if (currentStatus === "interview-filter-btn") {
