@@ -105,17 +105,19 @@ document.addEventListener("click", function (event) {
       status,
       jobDescription,
     };
-    
+
     // Check if job was previously in rejected list
-    const wasInRejected = rejectedList.some(item => item.jobName == cardInfo.jobName);
-    
+    const wasInRejected = rejectedList.some(
+      (item) => item.jobName == cardInfo.jobName,
+    );
+
     const jobNameExist = interviewList.find(
       (item) => item.jobName == cardInfo.jobName,
     );
     if (!jobNameExist) {
       cardInfo.status = "Interview";
       interviewList.push(cardInfo);
-      
+
       // Update the status text in the job card
       parentNode.querySelector(".job-status").innerText = "Interview";
     }
@@ -152,15 +154,17 @@ document.addEventListener("click", function (event) {
     };
 
     // Check if job was previously in interview list
-    const wasInInterview = interviewList.some(item => item.jobName == cardInfo.jobName);
-    
+    const wasInInterview = interviewList.some(
+      (item) => item.jobName == cardInfo.jobName,
+    );
+
     const jobNameExist = rejectedList.find(
       (item) => item.jobName == cardInfo.jobName,
     );
     if (!jobNameExist) {
       cardInfo.status = "Rejected";
       rejectedList.push(cardInfo);
-      
+
       // Update the status text in the job card
       parentNode.querySelector(".job-status").innerText = "Rejected";
     }
@@ -194,12 +198,9 @@ document.addEventListener("click", function (event) {
     // Remove the card  from rejected list, if present in the rejected list
     rejectedList = rejectedList.filter((item) => item.jobName !== jobName);
 
-
     parentNode.remove();
 
-
     calculationCounter();
-
 
     const totalJobsNumber = allCardSection.children.length;
     Jobcounter.innerHTML = `${totalJobsNumber} Jobs`;
@@ -228,7 +229,7 @@ document.addEventListener("click", function (event) {
 // Create interview card  in the interview filter section
 function renderInterview() {
   filterSection.innerHTML = "";
-  
+
   // Check if interview list is empty
   if (interviewList.length === 0) {
     filterSection.innerHTML = `
@@ -240,7 +241,7 @@ function renderInterview() {
     `;
     return;
   }
-  
+
   for (const interview of interviewList) {
     const div = document.createElement("div");
     div.className =
@@ -275,7 +276,7 @@ function renderInterview() {
 
 function renderRejected() {
   filterSection.innerHTML = "";
-  
+
   // Check if rejected list is empty
   if (rejectedList.length === 0) {
     filterSection.innerHTML = `
@@ -287,7 +288,7 @@ function renderRejected() {
     `;
     return;
   }
-  
+
   for (const rejected of rejectedList) {
     const div = document.createElement("div");
     div.className =
