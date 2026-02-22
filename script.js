@@ -60,6 +60,17 @@ function filtering(id) {
     allCardSection.classList.remove("hidden");
     filterSection.classList.add("hidden");
 
+    // Check if all jobs have been deleted
+    if (allCardSection.children.length === 0) {
+      allCardSection.innerHTML = `
+        <div class="empty-state bg-white flex flex-col items-center justify-center py-12">
+          <img src="jobs.png" alt="" class="w-32 h-32 mb-4">
+          <p class="text-gray-500 text-lg">No jobs available</p>
+          <p class="text-gray-400 text-sm">Check back soon for new job opportunities</p>
+        </div>
+      `;
+    }
+
     Jobcounter.innerHTML = `
         ${totalJobsNumber} Jobs
          `;
@@ -170,6 +181,16 @@ document.addEventListener("click", function (event) {
     const totalJobsNumber = allCardSection.children.length;
     Jobcounter.innerHTML = `${totalJobsNumber} Jobs`;
 
+    // Check if all jobs have been deleted while viewing the "all" section
+    if (currentStatus === "all-filter-btn" && totalJobsNumber === 0) {
+      allCardSection.innerHTML = `
+        <div class="empty-state flex flex-col items-center justify-center py-12">
+          <img src="jobs.png" alt="No jobs" class="w-32 h-32 mb-4 opacity-50">
+          <p class="text-gray-500 text-lg">No jobs available</p>
+          <p class="text-gray-400 text-sm">All jobs have been deleted or categorized</p>
+        </div>
+      `;
+    }
 
     if (currentStatus === "interview-filter-btn") {
       renderInterview();
@@ -184,6 +205,19 @@ document.addEventListener("click", function (event) {
 // Create interview card  in the interview filter section
 function renderInterview() {
   filterSection.innerHTML = "";
+  
+  // Check if interview list is empty
+  if (interviewList.length === 0) {
+    filterSection.innerHTML = `
+      <div class="empty-state bg-white flex flex-col items-center justify-center py-12">
+        <img src="jobs.png" alt="" class="w-32 h-32 mb-4 ">
+        <p class="text-gray-500 text-lg">No jobs available</p>
+        <p class="text-gray-400 text-sm">Check back soon for new job opportunities</p>
+      </div>
+    `;
+    return;
+  }
+  
   for (const interview of interviewList) {
     const div = document.createElement("div");
     div.className =
@@ -218,6 +252,19 @@ function renderInterview() {
 
 function renderRejected() {
   filterSection.innerHTML = "";
+  
+  // Check if rejected list is empty
+  if (rejectedList.length === 0) {
+    filterSection.innerHTML = `
+      <div class="empty-state bg-white flex flex-col items-center justify-center py-12">
+        <img src="jobs.png" alt="" class="w-32 h-32 mb-4">
+        <p class="text-gray-500 text-lg">No jobs available</p>
+        <p class="text-gray-400 text-sm">Check back soon for new job opportunities</p>
+      </div>
+    `;
+    return;
+  }
+  
   for (const rejected of rejectedList) {
     const div = document.createElement("div");
     div.className =
