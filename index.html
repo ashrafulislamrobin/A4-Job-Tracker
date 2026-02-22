@@ -40,15 +40,15 @@
     <section class="flex gap-4 justify-between">
       <div class="w-[22rem] bg-[#ffffff] px-5 py-5 rounded-md">
         <p class="text-[14px]">Total</p>
-        <p class="text-2xl font-bold">8</p>
+        <p id="total" class="text-2xl font-bold">8</p>
       </div>
       <div class="w-[22rem] bg-[#ffffff] px-5 py-5 rounded-md">
         <p class="text-[14px]">Interview</p>
-        <p class="text-2xl font-bold text-green-500">0</p>
+        <p id="interview" class="text-2xl font-bold text-green-500">0</p>
       </div>
       <div class="w-[22rem] bg-[#ffffff] px-5 py-5 rounded-md">
         <p class="text-[14px]">Rejected</p>
-        <p class="text-2xl font-bold text-red-500">0</p>
+        <p id="rejected" class="text-2xl font-bold text-red-500">0</p>
       </div>
     </section>
 
@@ -57,21 +57,21 @@
     <section class="space-y-2 mt-2">
       <div class="flex justify-between">
         <h1>Available Jobs</h1>
-        <p>8 Jobs</p>
+        <p id="total-job-counter">8 Jobs</p>
       </div>
 
-      <div class="">
-        <button
+      <div class="toggle-section">
+        <button onclick="filtering('all-filter-btn')" id="all-filter-btn" 
           class="bg-[#ffffff] text-gray-500 px-2 py-1 w-[80px] rounded-sm cursor-pointer"
         >
           All
-        </button>
-        <button
+        </button >
+        <button onclick="filtering('interview-filter-btn')" id="interview-filter-btn" 
           class="bg-[#ffffff] text-gray-500 px-2 py-1 w-[80px] rounded-sm cursor-pointer"
         >
           Interview
         </button>
-        <button
+        <button onclick="filtering('rejected-filter-btn')" id="rejected-filter-btn"
           class="bg-[#ffffff] text-gray-500 px-2 py-1 w-[80px] rounded-sm cursor-pointer"
         >
           Rejected
@@ -95,7 +95,7 @@
           </p>
           <p
             id=""
-            class="status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
+            class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
           >
             Not Applied
           </p>
@@ -112,13 +112,13 @@
             <button
               class="rejected-btn border-red-600 border-2 px-2 py-1 text-red-700"
             >
-              Interview
+              Rejected
             </button>
           </div>
         </div>
 
         <div class="right">
-          <button class="btn rounded-full shadow w-8 h-8">
+          <button class="delete-btn btn rounded-full shadow w-8 h-8">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
@@ -136,7 +136,7 @@
             RLos Angeles, CA • Part-time • $80,000 - $120,000
           </p>
           <p
-            class=" bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
+            class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
           >
             Not Applied
           </p>
@@ -153,13 +153,13 @@
             <button
               class="rejected-btn border-red-600 border-2 px-2 py-1 text-red-700"
             >
-              Interview
+              Rejected
             </button>
           </div>
         </div>
 
         <div class="right">
-          <button class="btn rounded-full shadow w-8 h-8">
+          <button class="delete-btn btn rounded-full shadow w-8 h-8">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
@@ -177,7 +177,7 @@
             Boston, MA • Full-time • $125,000 - $165,000
           </p>
           <p
-            class=" bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
+            class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
           >
             Not Applied
           </p>
@@ -194,13 +194,13 @@
             <button
               class="rejected-btn border-red-600 border-2 px-2 py-1 text-red-700"
             >
-              Interview
+              Rejected
             </button>
           </div>
         </div>
 
         <div class="right">
-          <button class="btn rounded-full shadow w-8 h-8">
+          <button class="delete-btn btn rounded-full shadow w-8 h-8">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
@@ -216,8 +216,7 @@
             Remote •Full-time •$130,000 - $175,000
           </p>
           <p
-            i
-            class=" bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
+            class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
           >
             Not Applied
           </p>
@@ -234,13 +233,13 @@
             <button
               class="rejected-btn border-red-600 border-2 px-2 py-1 text-red-700"
             >
-              Interview
+              Rejected
             </button>
           </div>
         </div>
 
         <div class="right">
-          <button class="btn rounded-full shadow w-8 h-8">
+          <button class="delete-btn btn rounded-full shadow w-8 h-8">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
@@ -256,7 +255,7 @@
             Remote •Full-time •$130,000 - $175,000
           </p>
           <p
-            class=" bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
+            class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
           >
             Not Applied
           </p>
@@ -274,13 +273,13 @@
             <button
               class="rejected-btn border-red-600 border-2 px-2 py-1 text-red-700"
             >
-              Interview
+              Rejected
             </button>
           </div>
         </div>
 
         <div class="right">
-          <button class="btn rounded-full shadow w-8 h-8">
+          <button class="delete-btn btn rounded-full shadow w-8 h-8">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
@@ -296,7 +295,7 @@
             Remote •Full-time •$130,000 - $175,000
           </p>
           <p
-            class=" bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
+            class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
           >
             Not Applied
           </p>
@@ -314,13 +313,13 @@
             <button
               class="rejected-btn border-red-600 border-2 px-2 py-1 text-red-700"
             >
-              Interview
+              Rejected
             </button>
           </div>
         </div>
 
         <div class="right">
-          <button class="btn rounded-full shadow w-8 h-8">
+          <button class="delete-btn btn rounded-full shadow w-8 h-8">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
@@ -336,7 +335,7 @@
             Remote •Full-time •$130,000 - $175,000
           </p>
           <p
-            class= "bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
+            class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
           >
             Not Applied
           </p>
@@ -354,13 +353,13 @@
             <button
               class="rejected-btn border-red-600 border-2 px-2 py-1 text-red-700"
             >
-              Interview
+              Rejected
             </button>
           </div>
         </div>
 
         <div class="right">
-          <button class="btn rounded-full shadow w-8 h-8">
+          <button class="delete-btn btn rounded-full shadow w-8 h-8">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
@@ -378,7 +377,7 @@
             Remote •Full-time •$130,000 - $175,000
           </p>
           <p
-            class=" bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
+            class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"
           >
             Not Applied
           </p>
@@ -396,17 +395,20 @@
             <button
               class="rejected-btn border-red-600 border-2 px-2 py-1 text-red-700"
             >
-              Interview
+              Rejected
             </button>
           </div>
         </div>
 
         <div class="right">
-          <button class="btn rounded-full shadow w-8 h-8">
+          <button class="delete-btn btn rounded-full shadow w-8 h-8">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
       </div>
+    </section>
+    <!-- Filtered job cards -->
+    <section id="filter-section" class="mt-8 space-y-8 hidden">
     </section>
     <script src="./script.js"></script>
   </body>
