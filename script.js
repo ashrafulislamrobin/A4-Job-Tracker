@@ -26,6 +26,15 @@ ${totalJobsNumber} Jobs
 `;
 console.log(Jobcounter);
 
+// Counter calculation function
+total.innerText = allCardSection.children.length;
+function calculationCounter() {
+  interviewCount = interviewList.length;
+  rejectedCount = rejectedList.length;
+  total.innerText = allCardSection.children.length;
+  interview.innerText = interviewList.length;
+  rejected.innerText = rejectedList.length;
+}
 // Toggle filter button selection
 const allFilterBtn = document.getElementById("all-filter-btn");
 const interviewFilterBtn = document.getElementById("interview-filter-btn");
@@ -78,25 +87,17 @@ function filtering(id) {
   }
 }
 
-// Counter calculation function
-total.innerText = allCardSection.children.length;
-function calculationCounter() {
-  interviewCount = interviewList.length;
-  rejectedCount = rejectedList.length;
-  interview.innerText = interviewList.length;
-  rejected.innerText = rejectedList.length;
-}
 // Add interview cards in the interview list
 
 document.addEventListener("click", function (event) {
   const parentNode = event.target.parentNode.parentNode.parentNode;
 
   if (event.target.classList.contains("interview-btn")) {
-    const jobName = parentNode.querySelector(".job-name ").innerText;
-    const jobType = parentNode.querySelector(".job-type ").innerText;
-    const jobBenefit = parentNode.querySelector(".job-benefit ").innerText;
-    const status = parentNode.querySelector(".job-status ").innerText;
-    const jobDescription = parentNode.querySelector(".description ").innerText;
+    const jobName = parentNode.querySelector(".job-name").innerText;
+    const jobType = parentNode.querySelector(".job-type").innerText;
+    const jobBenefit = parentNode.querySelector(".job-benefit").innerText;
+    const status = parentNode.querySelector(".job-status").innerText;
+    const jobDescription = parentNode.querySelector(".description").innerText;
 
     const cardInfo = {
       jobName,
@@ -120,6 +121,10 @@ document.addEventListener("click", function (event) {
 
       // Update the status text in the job card
       parentNode.querySelector(".job-status").innerText = "Interview";
+      parentNode
+        .querySelector(".job-status")
+        .classList.remove("bg-blue-100", "bg-red-100");
+      parentNode.querySelector(".job-status").classList.add("bg-green-100");
     }
 
     // Check the interview card in the rejected card list if it is here than remove the card
@@ -130,6 +135,10 @@ document.addEventListener("click", function (event) {
     // If the job was moved from rejected to interview, ensure status is updated
     if (wasInRejected && !jobNameExist) {
       parentNode.querySelector(".job-status").innerText = "Interview";
+      parentNode
+        .querySelector(".job-status")
+        .classList.remove("bg-blue-100", "bg-red-100");
+      parentNode.querySelector(".job-status").classList.add("bg-green-100");
     }
 
     // Rendering the rejected list
@@ -139,11 +148,11 @@ document.addEventListener("click", function (event) {
 
     calculationCounter();
   } else if (event.target.classList.contains("rejected-btn")) {
-    const jobName = parentNode.querySelector(".job-name ").innerText;
-    const jobType = parentNode.querySelector(".job-type ").innerText;
-    const jobBenefit = parentNode.querySelector(".job-benefit ").innerText;
-    const status = parentNode.querySelector(".job-status ").innerText;
-    const jobDescription = parentNode.querySelector(".description ").innerText;
+    const jobName = parentNode.querySelector(".job-name").innerText;
+    const jobType = parentNode.querySelector(".job-type").innerText;
+    const jobBenefit = parentNode.querySelector(".job-benefit").innerText;
+    const status = parentNode.querySelector(".job-status").innerText;
+    const jobDescription = parentNode.querySelector(".description").innerText;
 
     const cardInfo = {
       jobName,
@@ -167,6 +176,10 @@ document.addEventListener("click", function (event) {
 
       // Update the status text in the job card
       parentNode.querySelector(".job-status").innerText = "Rejected";
+      parentNode
+        .querySelector(".job-status")
+        .classList.remove("bg-blue-100", "bg-green-100");
+      parentNode.querySelector(".job-status").classList.add("bg-red-100");
     }
 
     // Check the rejected card in the interview card list if it is here than remove the card
@@ -177,6 +190,10 @@ document.addEventListener("click", function (event) {
     // If the job was moved from interview to rejected, ensure status is updated
     if (wasInInterview && !jobNameExist) {
       parentNode.querySelector(".job-status").innerText = "Rejected";
+      parentNode
+        .querySelector(".job-status")
+        .classList.remove("bg-blue-100", "bg-green-100");
+      parentNode.querySelector(".job-status").classList.add("bg-red-100");
     }
 
     // Rendering the interview list
@@ -198,7 +215,20 @@ document.addEventListener("click", function (event) {
     // Remove the card  from rejected list, if present in the rejected list
     rejectedList = rejectedList.filter((item) => item.jobName !== jobName);
 
-    parentNode.remove();
+    // Find and remove the original card from allCardSection
+    const allCards = allCardSection.querySelectorAll(".job-card");
+    for (const card of allCards) {
+      const cardJobName = card.querySelector(".job-name").innerText;
+      if (cardJobName === jobName) {
+        card.remove();
+        break;
+      }
+    }
+
+    // Remove the current card from DOM (if it's a filtered view card)
+    if (currentStatus !== "all-filter-btn") {
+      parentNode.remove();
+    }
 
     calculationCounter();
 
@@ -251,7 +281,7 @@ function renderInterview() {
                 <h2 class="job-name font-medium text-xl">${interview.jobName}</h2>
                 <p class="job-type text-gray-500 font-medium">${interview.jobType}</p>
                 <p class="job-benefit my-5 text-gray-500"> ${interview.jobBenefit} </p>
-                <p class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"> ${interview.status} </p>
+                <p class="job-status bg-green-100 py-1 px-3 rounded text-balance max-w-max mb-2"> ${interview.status} </p>
                 <p id="description" class="description text-gray-500 mb-5"> ${interview.jobDescription} </p>
                 <div class="btn-containe space-x-3">
                     <button
@@ -298,7 +328,7 @@ function renderRejected() {
                 <h2 class="job-name font-medium text-xl">${rejected.jobName}</h2>
                 <p class="job-type text-gray-500 font-medium">${rejected.jobType}</p>
                 <p class="job-benefit my-5 text-gray-500"> ${rejected.jobBenefit} </p>
-                <p class="job-status bg-blue-100 py-1 px-3 rounded text-balance max-w-max mb-2"> ${rejected.status} </p>
+                <p class="job-status bg-red-100 py-1 px-3 rounded text-balance max-w-max mb-2"> ${rejected.status} </p>
                 <p id="description" class="description text-gray-500 mb-5"> ${rejected.jobDescription} </p>
                 <div class="btn-containe space-x-3">
                     <button
@@ -318,3 +348,6 @@ function renderRejected() {
     filterSection.appendChild(div);
   }
 }
+
+// Initialize the "All" button as selected
+allFilterBtn.classList.add("bg-blue-500", "text-white");
