@@ -19,7 +19,7 @@ console.log(mainSection);
 
 // Initialize job counter
 const Jobcounter = document.getElementById("total-job-counter");
-const totalJobsNumber = allCardSection.children.length;
+const totalJobsNumber = allCardSection.querySelectorAll('.job-card').length;
 
 Jobcounter.innerHTML = `
 ${totalJobsNumber} Jobs
@@ -27,11 +27,11 @@ ${totalJobsNumber} Jobs
 console.log(Jobcounter);
 
 // Counter calculation function
-total.innerText = allCardSection.children.length;
+total.innerText = allCardSection.querySelectorAll('.job-card').length;
 function calculationCounter() {
   interviewCount = interviewList.length;
   rejectedCount = rejectedList.length;
-  total.innerText = allCardSection.children.length;
+  total.innerText = allCardSection.querySelectorAll('.job-card').length;
   interview.innerText = interviewList.length;
   rejected.innerText = rejectedList.length;
 }
@@ -233,16 +233,16 @@ document.addEventListener("click", function (event) {
 
     calculationCounter();
 
-    const totalJobsNumber = allCardSection.children.length;
-    Jobcounter.innerHTML = `${totalJobsNumber} Jobs`;
+    const totalJobsNumber = allCardSection.querySelectorAll('.job-card').length;
+    Jobcounter.innerHTML = totalJobsNumber === 0 ? `No jobs available` : `${totalJobsNumber} Jobs`;
 
     // Check if all jobs have been deleted while viewing the "all" section
-    if (currentStatus === "all-filter-btn" && totalJobsNumber === 0) {
+    if (!allCardSection.classList.contains("hidden") && totalJobsNumber === 0) {
       allCardSection.innerHTML = `
-        <div class="empty-state flex flex-col items-center justify-center py-12">
-          <img src="jobs.png" alt="No jobs" class="w-32 h-32 mb-4 opacity-50">
+        <div class="empty-state bg-white flex flex-col items-center justify-center py-12">
+          <img src="jobs.png" alt="" class="w-32 h-32 mb-4">
           <p class="text-gray-500 text-lg">No jobs available</p>
-          <p class="text-gray-400 text-sm">All jobs have been deleted or categorized</p>
+          <p class="text-gray-400 text-sm">Check back soon for new job opportunities</p>
         </div>
       `;
     }
