@@ -49,6 +49,8 @@ function filtering(id) {
   const selected = document.getElementById(id);
   selected.classList.add("bg-blue-500", "text-white");
 
+  const totalJobsNumber = allCardSection.querySelectorAll('.job-card').length;
+
   if (id === "interview-filter-btn") {
     allCardSection.classList.add("hidden");
     filterSection.classList.remove("hidden");
@@ -70,7 +72,7 @@ function filtering(id) {
     filterSection.classList.add("hidden");
 
     // Check if all jobs have been deleted
-    if (allCardSection.children.length === 0) {
+    if (totalJobsNumber === 0) {
       allCardSection.innerHTML = `
         <div class="empty-state bg-white flex flex-col items-center justify-center py-12">
           <img src="jobs.png" alt="" class="w-32 h-32 mb-4">
@@ -83,7 +85,6 @@ function filtering(id) {
     Jobcounter.innerHTML = `
         ${totalJobsNumber} Jobs
          `;
-    console.log(Jobcounter);
   }
 }
 
