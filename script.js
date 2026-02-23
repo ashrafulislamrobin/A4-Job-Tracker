@@ -148,6 +148,16 @@ document.addEventListener("click", function (event) {
     }
 
     calculationCounter();
+
+    // Update job counter based on current status
+    const totalJobsNumber = allCardSection.querySelectorAll('.job-card').length;
+    if (currentStatus === "interview-filter-btn") {
+      Jobcounter.innerHTML = `${interviewCount} of ${totalJobsNumber} Jobs`;
+    } else if (currentStatus === "rejected-filter-btn") {
+      Jobcounter.innerHTML = `${rejectedCount} of ${totalJobsNumber} Jobs`;
+    } else {
+      Jobcounter.innerHTML = totalJobsNumber === 0 ? `No jobs available` : `${totalJobsNumber} Jobs`;
+    }
   } else if (event.target.classList.contains("rejected-btn")) {
     const jobName = parentNode.querySelector(".job-name").innerText;
     const jobType = parentNode.querySelector(".job-type").innerText;
@@ -203,6 +213,16 @@ document.addEventListener("click", function (event) {
     }
 
     calculationCounter();
+
+    // Update job counter based on current status
+    const totalJobsNumber = allCardSection.querySelectorAll('.job-card').length;
+    if (currentStatus === "interview-filter-btn") {
+      Jobcounter.innerHTML = `${interviewCount} of ${totalJobsNumber} Jobs`;
+    } else if (currentStatus === "rejected-filter-btn") {
+      Jobcounter.innerHTML = `${rejectedCount} of ${totalJobsNumber} Jobs`;
+    } else {
+      Jobcounter.innerHTML = totalJobsNumber === 0 ? `No jobs available` : `${totalJobsNumber} Jobs`;
+    }
   } else if (
     event.target.classList.contains("delete-btn") ||
     event.target.closest(".delete-btn")
